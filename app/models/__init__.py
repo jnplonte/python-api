@@ -12,6 +12,7 @@ class Models():
         
         self.__tablename__ = tableName
         self.__columns__ = columns
+        self.defaultColumns = self.getDefaultColumns()
     
 
     def getAll(self, query, params = {}):
@@ -52,10 +53,9 @@ class Models():
 
 
     def save(self, data):
-        data['active'] = True
         data['createdAt'] = datetime.datetime.utcnow()
 
-        document = self.connection.insert_one(self.filterColumns(data)).inserted_id
+        document = self.connection.insert_one({**self.defaultColumns, **self.filterColumns(data)}).inserted_id
         return str(document)
 
 
@@ -68,6 +68,19 @@ class Models():
         document = self.connection.update_one(query, {'$set': self.filterColumns(data)}, True)
         return str(document)
 
+
+    def getDefaultColumns(self):
+        defaults = {
+            'active': True,
+            'createdAt': datetime.datetime.utcnow()
+        }
+        data = dict()
+
+        for col in self.__columns__:
+            if col != '_id':
+                data[col] = defaults.get(col, '')
+
+        return data
 
     def filterColumns(self, data):
         finalData = dict()
