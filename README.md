@@ -24,8 +24,7 @@
 
 
 ## Documentation
-- run `mkdocs serve`
-- run `mkdocs build`
+- run `./bash_scripts/docs.sh`
 
 
 ## Testing

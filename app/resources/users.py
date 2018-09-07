@@ -11,6 +11,29 @@ class UsersResources(object):
         self.users = Users(mongoConnection)
 
 
+    """
+    @api {get} /users get all active user
+    @apiVersion 1.0.0
+    @apiName all
+    @apiGroup USERS
+    @apiPermission all
+    @apiDescription get all active user
+    
+    @apiParam (url parameter) {String} [query] filter query <br/> Ex. `?query=firstName:johnpaul`
+    @apiParam (url parameter) {Number} [limit=10] data limit <br/> Ex. `?limit=1`
+    @apiParam (url parameter) {Number} [page=1] page number <br/> Ex. `?page=1`
+    """
+
+    """
+    @api {get} /users/<id> get one user
+    @apiVersion 1.0.0
+    @apiName get
+    @apiGroup USERS
+    @apiPermission all
+    @apiDescription get one user based on user id
+    
+    @apiParam (url segment) {String} id user id
+    """
     def on_get(self, req, resp, id=None):
         if id is None:
             reqParams = getQuery(req.params)
@@ -31,6 +54,21 @@ class UsersResources(object):
                 req.context['status'] = 'error'
                 req.context['error'] = e
 
+    """
+    @api {post} /users insert one user
+    @apiVersion 1.0.0
+    @apiName post
+    @apiGroup USERS
+    @apiPermission all
+    @apiDescription insert one user
+    
+    @apiParam (body) {String} firstName user first name
+    @apiParam (body) {String} lastName user last name
+    @apiParam (body) {String} email user email
+    @apiParam (body) {String} userName user name
+    @apiParam (body) {String} password user password
+    @apiParam (body) {String} [phone] user contact number
+    """
     def on_post(self, req, resp):
         if 'data' not in req.context or self.checkRequiredPostParameters(req.context['data']) is False:
             req.context['statusCode'] = falcon.HTTP_400
@@ -50,6 +88,22 @@ class UsersResources(object):
             req.context['status'] = 'error'
             req.context['error'] = e
 
+    """
+    @api {put} /users/<id> update one user
+    @apiVersion 1.0.0
+    @apiName put
+    @apiGroup USERS
+    @apiPermission all
+    @apiDescription update one user based on user id
+    
+    @apiParam (url segment) {String} id user id
+    @apiParam (body) {String} [firstName] user first name
+    @apiParam (body) {String} [lastName] user last name
+    @apiParam (body) {String} [email] user email
+    @apiParam (body) {String} [userName] user name
+    @apiParam (body) {String} [password] user password
+    @apiParam (body) {String} [phone] user contact number
+    """
     def on_put(self, req, resp, id=None):
         if id is None:
             return
@@ -65,6 +119,16 @@ class UsersResources(object):
             req.context['status'] = 'error'
             req.context['error'] = e
 
+    """
+    @api {delete} /users/<id> delete one user
+    @apiVersion 1.0.0
+    @apiName delete
+    @apiGroup USERS
+    @apiPermission all
+    @apiDescription delete one user based on user id
+    
+    @apiParam (url segment) {String} id user id
+    """
     def on_delete(self, req, resp, id=None):
         if id is None:
             return
