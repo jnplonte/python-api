@@ -28,3 +28,6 @@ access.log
 .python-version
 
 api-env
+
+error.log
+access.log

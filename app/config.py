@@ -33,11 +33,11 @@ class DevConfig(BaseConfig):
     ENV = 'DEV'
     LOG_LEVEL = 'DEBUG'
 
-    MONGO_HOST = ''
-    MONGO_PORT = 3717
-    MONGO_DATABASE = 'development'
-    MONGO_USERNAME = ''
-    MONGO_PASSWORD = ''
+    MONGO_HOST = os.getenv('MONGO_HOST', '')
+    MONGO_PORT = os.getenv('MONGO_PORT', 0)
+    MONGO_DATABASE = os.getenv('MONGO_DATABASE', '')
+    MONGO_USERNAME = os.getenv('MONGO_USERNAME', '')
+    MONGO_PASSWORD = os.getenv('MONGO_PASSWORD', '')
 
 
 class ProdConfig(BaseConfig):
@@ -45,8 +45,8 @@ class ProdConfig(BaseConfig):
     LOG_LEVEL = 'INFO'
 
     MONGO_HOST = os.getenv('MONGO_HOST', '')
-    MONGO_PORT = os.getenv('MONGO_PORT', 3717)
-    MONGO_DATABASE = os.getenv('MONGO_DATABASE', 'development')
+    MONGO_PORT = os.getenv('MONGO_PORT', 0)
+    MONGO_DATABASE = os.getenv('MONGO_DATABASE', '')
     MONGO_USERNAME = os.getenv('MONGO_USERNAME', '')
     MONGO_PASSWORD = os.getenv('MONGO_PASSWORD', '')
 
