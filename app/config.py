@@ -6,6 +6,7 @@ class BaseConfig(object):
     SECRET_KEY = 'x-python-api-key'
     SECRET_KEY_HASH = '$someSecretKeyHere$'
     SECRET_KEY_LENGTH = 5
+    GET_QUERY_LIMIT = 10
     LOGO = 'https://www.logo.com/img.png'
 
     ENV = ''

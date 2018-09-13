@@ -14,6 +14,6 @@ def getQuery(reqParams):
 
 def getPassword(password):
     salt = randomString(6)
-    hashPassword = hashlib.sha512((password + salt).encode('utf-8')).hexdigest()
+    hashPassword = hashlib.sha256((password + salt).encode('utf-8')).hexdigest()
 
     return (salt, hashPassword)
