@@ -1,11 +1,9 @@
-# Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
 *$py.class
 
 # Distribution / packaging
 .Python
-.vscode
 build/
 dist/
 app/**/*.pyc
@@ -19,15 +17,18 @@ app/**/*.pyc
 .DS_Store
 
 # Installer logs
-pip-log.txt
-out.log
-err.log
-access.log
+python-app/pip-log.txt
+python-app/out.log
+python-app/err.log
+python-app/__pycache__/
+python-app/python-env
+python-app/app.ini
 
-# pyenv
-.python-version
-
-api-env
-
-error.log
-access.log
+# Editor directories and files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?

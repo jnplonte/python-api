@@ -1,0 +1,15 @@
+{
+	"name": "Python Api",
+	"version": "1.0.0",
+	"description": "Python Api Documentation",
+	"title": "Python Api Documentation",
+	"url": "https://www.jnpl.me/playground/pythonapi/<version>",
+	"header": {
+		"title": "GETTING STARTED",
+		"filename": "apidoc-getting-started.md"
+	},
+	"template": {
+		"withCompare": true,
+		"withGenerator": true
+	}
+}

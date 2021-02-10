@@ -1,0 +1,5 @@
+# Installer logs
+python-app/pip-log.txt
+python-app/out.log
+python-app/err.log
+python-app/python-env

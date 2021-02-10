@@ -1,0 +1,26 @@
+version: '3.2'
+
+services:
+  python:
+    image: pythonapi
+    restart: always
+    build:
+      context: ./
+      dockerfile: ./python.docker
+    container_name: pythonapi
+    ports:
+      - '8383:8383'
+    volumes:
+      - ./python-app:/application
+    command: ['uwsgi', 'app.ini']
+    networks:
+      - app-network
+    logging:
+      driver: 'json-file'
+      options:
+        max-file: '5'
+        max-size: '10m'
+
+networks:
+  app-network:
+    driver: bridge
