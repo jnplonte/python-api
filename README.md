@@ -21,7 +21,7 @@
 
 ### Installation
 
-- create virtualenv `virtualenv -p python3 python-env`
+- create virtualenv `virtualenv -p python python-env`
 - work on virtualenv `source python-env/bin/activate`
 - install python dependencies by running `pip install -r requirements.txt`
 - Generate documentation by running `apidoc -i ./app/ -o ./documentation/ -f .py`
