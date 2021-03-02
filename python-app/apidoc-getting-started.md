@@ -1,6 +1,4 @@
-all api that has a **permision** set to **authenticated-user** is required to have a `Authorization Bearer Token` as a headers
-
-_NOTE: authorization token will expired every 5days_
+all api that has a **permision** set to **authenticated-user** is required to have a `user-key` as a headers
 
 ### API EXPECTED SUCCESS RESULTS
 
