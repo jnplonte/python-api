@@ -4,7 +4,7 @@ from app.models import Models
 
 class Users(Models):
     __tablename__ = 'users'
-    __columns__ = ['_id', 'code', 'firstName', 'lastName', 'email', 'phone', 'active', 'updatedAt', 'createdAt']
+    __columns__ = ['_id', 'key', 'code', 'firstName', 'lastName', 'email', 'phone', 'active', 'updatedAt', 'createdAt']
     __unique__ = [[('code', DESCENDING)]]
 
 

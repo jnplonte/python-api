@@ -13,6 +13,7 @@ from app.v1.authentication.token import startToken
 
 
 env = os.environ.get('ENV')
+port = os.environ.get('PORT')
 
 if env == 'development':
     configs = config.DevConfig
@@ -21,8 +22,8 @@ elif env == 'production':
 else:
     configs = config.LocalConfig
 
-print('api environment is %s', env.upper())
-print('api listening to http://localhost:%s', os.environ.get('PORT'))
+print('api environment is %s', env.upper() if env is not None else 'local')
+print('api listening to http://localhost:%s', os.environ.get('PORT') if env is not None else '8383' )
 
 # ---------------------------------------------------------------------------------------------------------------------
 

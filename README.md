@@ -24,19 +24,12 @@
 - create virtualenv `virtualenv -p python3 python-env`
 - work on virtualenv `source python-env/bin/activate`
 - install python dependencies by running `pip install -r requirements.txt`
+- Generate documentation by running `apidoc -i ./app/ -o ./documentation/ -f .py`
+- Install database mock data by running `python seeders/seed-<seed-name>.py`
 
 ### How to Use
 
 - run `uwsgi app.ini` it will listen to default http://localhost:8383
-
-### Creating Models and Migrations
-
-- install a global seeders `docker exec -ti flask python seeders/seeds.py`
-- install a single seed data `docker exec -ti flask python seeders/seed-<seed-name>.py`
-
-### Documentation
-
-- run `apidoc -i ./app/ -o ./documentation/ -f .py`
 
 ### Testing
 
@@ -47,7 +40,8 @@
 ### Installation
 
 - build `docker-compose build`
-- install pip `docker exec -ti flask pip3 install -r requirements.txt`
+- install pip `docker exec -ti pythonapi pip install -r requirements.txt`
+- seed data `docker exec -ti pythonapi python seeders/seed-<seed-name>.py`
 
 ### How to Use
 
