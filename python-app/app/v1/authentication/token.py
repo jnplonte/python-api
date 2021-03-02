@@ -1,26 +1,21 @@
-import copy
-import uuid
-
 from datetime import datetime
-from bson.objectid import ObjectId
 
-from flask import g
 from flask_restful import Resource, reqparse
 
-
-from app.services.query import query
 from app.services.not_found import notFound
 
-class Token(Resource):
+from app.models.users import Users
+
+class AuthenticationToken(Resource):
     def __init__(self, config, api_response, mongo_connection):
         self.config = config
-        self.user = g.user
+        self.startTime = datetime.now()
 
         self.api_response = api_response
 
-        self.parser = reqparse.RequestParser()
+        self.users = Users(mongo_connection, False)
 
-        self.startTime = datetime.now()
+        self.parser = reqparse.RequestParser()
 
 
     def get(self):
@@ -28,28 +23,31 @@ class Token(Resource):
 
 
     """
-    @api {post} /custom/updategpsdata update order planning gps data
+    @api {post} /auth/token fetch user information
     @apiVersion 1.0.0
-    @apiName post-gpsdata
-    @apiGroup CUSTOM
+    @apiName post-token
+    @apiGroup AUTHENTICATION
     @apiPermission all
-    @apiDescription update order planning gps data
+    @apiDescription fetch user information via token
 
-    @apiParam (body) {String} deviceId device id
-    @apiParam (body) {String} posAt position 
-    @apiParam (body) {String} latLongG lat-lng google
-    @apiParam (body) {String} latLongB lat-lng baidu
-    @apiParam (body) {String} latLongA lat-lng amap
-    @apiParam (body) {String} battery battery
-    @apiParam (body) {String} addCode address code (routeData.companyName)
-    @apiParam (body) {String} distance distance
-    @apiParam (body) {String} lockStatus lock status
-
-    @apiParam (body) {String} [user] user name
-    @apiParam (body) {String} [emailAlert] email alert
+    @apiParam (body) {String} key user key
     """
     def post(self):
-        return self.api_response.success('token', 'xxxx', startTime=self.startTime)
+        self.parser.add_argument('key', type=str)
+
+        data = self.parser.parse_args()
+
+        if self.checkRequiredPostParameters(data) is False:
+            return self.api_response.failed('data', ['key'])
+
+        try:
+            queryData = self.getData(data['key'])
+            if not bool(queryData):
+                return self.api_response.failed('token', '')
+    
+            return self.api_response.success('token', queryData, startTime=self.startTime)
+        except Exception as e:
+            return self.api_response.failed('token', str(e))
 
 
     def put(self):
@@ -62,12 +60,15 @@ class Token(Resource):
 # ---------------------------------------------------------------------------------------------------------------------
 
     def checkRequiredPostParameters(self, data):
-        if data['email'] is None:
+        if data['key'] is None:
             return False
         
         return True
 
+    def getData(self, kId):
+        return self.users.get({'key': kId})
+
 # ---------------------------------------------------------------------------------------------------------------------
 
 def startToken(api, config, api_response, mongo_connection):
-    api.add_resource(Token, '/auth/token', endpoint = 'token', resource_class_kwargs={'config': config, 'api_response': api_response, 'mongo_connection': mongo_connection})
+    api.add_resource(AuthenticationToken, '/v1/auth/token', endpoint = 'token', resource_class_kwargs={'config': config, 'api_response': api_response, 'mongo_connection': mongo_connection})
