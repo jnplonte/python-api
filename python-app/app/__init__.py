@@ -10,6 +10,8 @@ from app import config
 from app.services.api_response import ApiResponse
 
 from app.v1.authentication.token import startToken
+
+from app.v1.core.user import startUser
 from app.v1.core.users import startUsers
 
 from app.models.users import Users
@@ -89,6 +91,8 @@ def not_found(error):
 api_response = ApiResponse()
 
 startToken(api, configs, api_response, mongo)
+
+startUser(api, configs, api_response, mongo)
 startUsers(api, configs, api_response, mongo)
 
 if __name__ == "__main__":
