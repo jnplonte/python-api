@@ -9,7 +9,8 @@
 		"filename": "apidoc-getting-started.md"
 	},
 	"template": {
-		"withCompare": true,
-		"withGenerator": true
-	}
+		"withCompare": false,
+		"withGenerator": false
+	},
+	"sampleUrl": null
 }

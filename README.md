@@ -10,6 +10,7 @@
 
 - python [https://www.python.org/](https://www.python.org/)
 - flask: [https://flask-restful.readthedocs.io/en/latest/](https://flask-restful.readthedocs.io/en/latest/)
+- mongodb: [https://www.mongodb.com/](https://www.mongodb.com/)
 - docker: [https://www.docker.com/](https://www.docker.com/)
 
 ## Demo
@@ -29,7 +30,7 @@
 
 ### How to Use
 
-- run `uwsgi app.ini` it will listen to default http://localhost:8383
+- run `uwsgi app.ini` it will listen to http://localhost:8383 with authorization Header
 
 ### Testing
 
