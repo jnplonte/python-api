@@ -22,7 +22,7 @@ class CoreUsers(Resource):
     """
     @api {get} /core/users get all users
     @apiVersion 1.0.0
-    @apiName get
+    @apiName getAll
     @apiGroup USERS
     @apiPermission authenticated-user
     @apiDescription get all users

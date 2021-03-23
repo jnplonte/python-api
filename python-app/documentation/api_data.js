@@ -30,48 +30,10 @@ define({ "api": [
   },
   {
     "type": "get",
-    "url": "/core/user/:id",
-    "title": "get one user",
-    "version": "1.0.0",
-    "name": "get",
-    "group": "USERS",
-    "permission": [
-      {
-        "name": "authenticated-user"
-      }
-    ],
-    "description": "<p>get one users</p>",
-    "parameter": {
-      "fields": {
-        "url segment": [
-          {
-            "group": "url segment",
-            "type": "String",
-            "optional": false,
-            "field": "id",
-            "description": "<p>user id</p>"
-          }
-        ],
-        "url parameter": [
-          {
-            "group": "url parameter",
-            "type": "String",
-            "optional": false,
-            "field": "key",
-            "description": "<p>key search Ex. ?key=name</p>"
-          }
-        ]
-      }
-    },
-    "filename": "app/v1/core/user.py",
-    "groupTitle": "USERS"
-  },
-  {
-    "type": "get",
     "url": "/core/users",
     "title": "get all users",
     "version": "1.0.0",
-    "name": "get",
+    "name": "getAll",
     "group": "USERS",
     "permission": [
       {
@@ -107,6 +69,44 @@ define({ "api": [
       }
     },
     "filename": "app/v1/core/users.py",
+    "groupTitle": "USERS"
+  },
+  {
+    "type": "get",
+    "url": "/core/user/:id",
+    "title": "get one user",
+    "version": "1.0.0",
+    "name": "getOne",
+    "group": "USERS",
+    "permission": [
+      {
+        "name": "authenticated-user"
+      }
+    ],
+    "description": "<p>get one users</p>",
+    "parameter": {
+      "fields": {
+        "url segment": [
+          {
+            "group": "url segment",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>user id</p>"
+          }
+        ],
+        "url parameter": [
+          {
+            "group": "url parameter",
+            "type": "String",
+            "optional": false,
+            "field": "key",
+            "description": "<p>key search Ex. ?key=name</p>"
+          }
+        ]
+      }
+    },
+    "filename": "app/v1/core/user.py",
     "groupTitle": "USERS"
   }
 ] });
