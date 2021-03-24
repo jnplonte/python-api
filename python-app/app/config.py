@@ -19,11 +19,11 @@ class BaseConfig(object):
 class LocalConfig(BaseConfig):
     LOG_LEVEL = 'DEBUG'
 
-    MONGO_HOST = '192.168.1.111'
-    MONGO_PORT = 27018
-    MONGO_DATABASE = 'testDB'
-    MONGO_USERNAME = 'admin'
-    MONGO_PASSWORD = 'johnpaul'
+    MONGO_HOST = ''
+    MONGO_PORT = 0
+    MONGO_DATABASE = ''
+    MONGO_USERNAME = ''
+    MONGO_PASSWORD = ''
 
 
 class DevConfig(BaseConfig):
