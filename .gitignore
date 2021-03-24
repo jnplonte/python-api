@@ -23,7 +23,7 @@ python-app/err.log
 python-app/__pycache__/
 python-app/python-env
 python-app/app.ini
-python-app/documentation/
+# python-app/documentation/
 
 # Editor directories and files
 .idea
