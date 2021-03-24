@@ -11,8 +11,8 @@ from app.services.api_response import ApiResponse
 
 from app.v1.authentication.token import startToken
 
-from app.v1.core.user import startUser
-from app.v1.core.users import startUsers
+from app.v1.core.users.user import startUser
+from app.v1.core.users.users import startUsers
 
 from app.models.users import Users
 

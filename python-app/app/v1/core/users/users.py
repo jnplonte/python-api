@@ -4,6 +4,7 @@ from flask_restful import Resource, reqparse
 
 from app.services.query import query
 from app.services.not_found import notFound
+from app.services.generate_key import generateKey
 
 from app.models.users import Users
 
@@ -22,7 +23,7 @@ class CoreUsers(Resource):
     """
     @api {get} /core/users get all users
     @apiVersion 1.0.0
-    @apiName getAll
+    @apiName all
     @apiGroup USERS
     @apiPermission authenticated-user
     @apiDescription get all users
@@ -48,8 +49,40 @@ class CoreUsers(Resource):
         return self.api_response.success('get', queryData, queryPagination, startTime=self.startTime)
 
 
+    """
+    @api {post} /core/users insert user
+    @apiVersion 1.0.0
+    @apiName post
+    @apiGroup USERS
+    @apiPermission authenticated-user
+    @apiDescription insert user
+
+    @apiParam (body) {String} code user code
+    @apiParam (body) {String} firstName first name
+    @apiParam (body) {String} lastName last name
+    @apiParam (body) {String} email unique email address
+    @apiParam (body) {String} phone unique phone number
+    """
     def post(self):
-        return notFound(self.api_response.failed)
+        self.parser.add_argument('code', type=str)
+        self.parser.add_argument('firstName', type=str)
+        self.parser.add_argument('lastName', type=str)
+        self.parser.add_argument('email', type=str)
+        self.parser.add_argument('phone', type=str, default=None)
+
+        data = self.parser.parse_args()
+
+        if self.checkRequiredPostParameters(data) is False:
+            return self.api_response.failed('data', ['code', 'firstName', 'lastName', 'email'])
+
+        try:
+            saveId = self.saveOneData(data)
+            if not bool(saveId):
+                return self.api_response.failed('post', '')
+
+            return self.api_response.success('post', saveId, startTime=self.startTime)
+        except Exception as e:
+            return self.api_response.failed('post', str(e))
 
 
     def put(self):
@@ -60,10 +93,20 @@ class CoreUsers(Resource):
         return notFound(self.api_response.failed)
 
 # ---------------------------------------------------------------------------------------------------------------------
+    def checkRequiredPostParameters(self, data):
+        if data['code'] is None or data['firstName'] is None or data['lastName'] is None or data['email'] is None:
+            return False
+        
+        return True
 
     def getAllData(self, query, params):
         return self.users.getAll(query, params)
 
+    def saveOneData(self, data):
+        data['active'] = True
+        data['key'] = generateKey(50)
+
+        return self.users.save(data)
 # ---------------------------------------------------------------------------------------------------------------------
 
 def startUsers(api, config, api_response, mongo_connection):
