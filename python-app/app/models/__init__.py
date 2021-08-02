@@ -36,7 +36,7 @@ class Models():
         offset = limit * (page - 1);
 
         self.printLogs('GET', query, '')
-        documentCount = self.connection.count(query)
+        documentCount = self.connection.count_documents(query)
         document = self.connection.find(query, finalFields, sort=[('createdAt', -1)]).skip(offset).limit(limit)
 
         if document is None:
@@ -51,7 +51,7 @@ class Models():
 
     def getCount(self, query):
         self.printLogs('GET', query, '')
-        documentCount = self.connection.count(query)
+        documentCount = self.connection.count_documents(query)
 
         if documentCount is None:
             return int(0)

@@ -59,9 +59,13 @@ def tokenCheck():
 
             return response
     else:
-        userKey = request.headers.get('user-key', None)
+        if userString != configs.SECRET_KEY_HASH:
+            response = jsonify(api_response.failed('authentication', ''))
+            response.status_code = 401
 
-        userData = Users(mongo, False).get({'key': str(userKey)})
+            return response
+
+        userData = Users(mongo, False).get({'key': str(request.args.get('user-key'))})
         if not bool(userData):
             response = jsonify(api_response.failed('authentication', ''))
             response.status_code = 401

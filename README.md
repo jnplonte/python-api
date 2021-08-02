@@ -26,7 +26,7 @@
 - work on virtualenv `source python-env/bin/activate`
 - install python dependencies by running `pip install -r requirements.txt`
 - Generate documentation by running `apidoc -i ./app/ -o ./documentation/ -f .py`
-- Install database mock data by running `python seeders/seed-<seed-name>.py`
+- Install database mock data by running `python seeders/seed_<seed-name>.py`
 
 ### How to Use
 
@@ -34,7 +34,7 @@
 
 ### Testing
 
-- run `test ?`
+- run `python -m unittest tests/test_<test-name>.py`
 
 ## DOCKER
 
@@ -42,9 +42,13 @@
 
 - build `docker-compose build`
 - install pip `docker exec -ti pythonapi pip install -r requirements.txt`
-- seed data `docker exec -ti pythonapi python seeders/seed-<seed-name>.py`
+- seed data `docker exec -ti pythonapi python seeders/seed_<seed-name>.py`
 
 ### How to Use
 
 - run `docker-compose up`
 - run `docker-compose start`
+
+### Testing
+
+- run `docker exec -ti pythonapi python -m unittest tests/test_<test-name>.py`
